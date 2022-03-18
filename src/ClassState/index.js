@@ -1,4 +1,5 @@
 import React from "react";
+import { Loading } from '../Loading';
 
 class ClassState extends React.Component {
 
@@ -6,9 +7,30 @@ class ClassState extends React.Component {
         super(props);
 
         this.state = {
-            error: false
+            error: false,
+            loading: false,
         }
     }
+
+    // UNSAFE_componentWillMount() {
+    //     console.log("component Will Mount")
+    // }
+
+    // componentDidMount() {
+    //     console.log("component Did Mount")
+    // }
+
+    componentDidUpdate() {
+        if(this.state.loading){
+            console.log("start")
+
+            setTimeout(() => {
+                this.setState({loading: false});
+                console.log("finish")
+            }, 3000) 
+        }
+    }
+    
 
     render() {
         return (
@@ -21,11 +43,15 @@ class ClassState extends React.Component {
                     <p>Error: The security code is not correct</p>
                 )}
 
+                {this.state.loading && (
+                    <Loading />
+                )}
+
                 <input type="text" placeholder="Security code"></input>
 
                 <button 
                     type="button"
-                    onClick={() => this.setState({error: !this.state.error})}
+                    onClick={() => this.setState({loading: !this.state.loading})}
                     >
                         Check</button>
             </div>
