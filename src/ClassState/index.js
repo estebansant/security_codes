@@ -1,12 +1,17 @@
 import React from "react";
 import { Loading } from '../Loading';
 
+const SECURITY_CODE = 'paradigma';
+
 class ClassState extends React.Component {
+
+    /*defining states*/
 
     constructor(props) {
         super(props);
 
         this.state = {
+            value: '',
             error: false,
             loading: false,
         }
@@ -20,12 +25,19 @@ class ClassState extends React.Component {
     //     console.log("component Did Mount")
     // }
 
+
+    /*updating the value of the states*/
+
     componentDidUpdate() {
         if(this.state.loading){
             console.log("start")
 
             setTimeout(() => {
-                this.setState({loading: false});
+                if(this.state.value === SECURITY_CODE){
+                    this.setState({error: false, loading: false})
+                } else {
+                    this.setState({ error: true, loading: false })
+                }
                 console.log("finish")
             }, 3000) 
         }
@@ -39,7 +51,10 @@ class ClassState extends React.Component {
 
                 <p>Please, write your security code to proceed with this operation</p>
 
-                {this.state.error && (
+
+                {/*Defining what happens when error and loading are true*/}
+
+                {(this.state.error && !this.state.loading) && (
                     <p>Error: The security code is not correct</p>
                 )}
 
@@ -47,7 +62,14 @@ class ClassState extends React.Component {
                     <Loading />
                 )}
 
-                <input type="text" placeholder="Security code"></input>
+                <input
+                    type="text"
+                    placeholder="Security code"
+                    value = {this.state.value}
+                    onChange = {(event) => {
+                        this.setState({value: event.target.value});
+                    }}
+                ></input>
 
                 <button 
                     type="button"
