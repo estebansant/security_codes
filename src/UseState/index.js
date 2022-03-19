@@ -2,6 +2,8 @@ import React from "react";
 
 const SECURITY_CODE = 'paradigma';
 
+// Imperative way to write code
+
 function UseState({name}) {
 
     const[state, setState] = React.useState({
@@ -60,6 +62,7 @@ function UseState({name}) {
             <input 
                 type="text"
                 placeholder="Security code"
+                disabled={state.loading}
                 value={state.value}
                 onChange={(event) => {
                     setState({
