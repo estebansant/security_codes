@@ -8,6 +8,8 @@ function UseState({name}) {
         value: '',
         error: false, 
         loading: false,
+        deleted: false,
+        confirmed: false,
     });
 
     console.log(state.value)
@@ -29,7 +31,9 @@ function UseState({name}) {
                     setState({ 
                         ...state,
                         error: false, 
-                        loading: false})
+                        loading: false,
+                        confirmed: true,
+                    })
                 }
 
                 console.log("finish")
@@ -39,8 +43,9 @@ function UseState({name}) {
 
     }, [state.loading])
 
-    return (
-        <div>
+    if (!state.deleted && !state.confirmed){
+        return(
+            <div>
             <h2>Remove {name}</h2>
 
             <p>Please, write your security code to proceed with this operation</p>
@@ -75,7 +80,54 @@ function UseState({name}) {
             >
                 Check</button>
         </div>
-    )
+        );
+        
+    } else if (state.confirmed && !state.deleted) {
+        return(
+            <React.Fragment>
+                <p>Please confirm your action. Are you sure you want to delete {name}?</p>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setState({
+                            ...state,
+                            deleted: true,
+                        })
+                    }}
+                >Yes, just delete it</button>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setState({
+                            ...state,
+                            confirmed: false,
+                            value: '',
+                        })
+                    }}
+                >Nah, I changed my mind</button>
+            </React.Fragment>
+        );
+
+    } else {
+        return(
+            <React.Fragment>
+                <p>Succesfully deleted</p>
+                <button
+                    type="button"
+                    onClick={() => {
+                        setState({
+                            ...state,
+                            confirmed: false,
+                            deleted: false,
+                            value: '',
+                        })
+                    }}
+                >
+                    Reset, undo the changes
+                </button>
+            </React.Fragment>
+        );
+    }
 }
 
 export { UseState };
