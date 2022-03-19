@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/security_codes/static/css/main.073c9b0a.css",
+    "main.js": "/security_codes/static/js/main.e36121ae.js",
+    "index.html": "/security_codes/index.html",
+    "main.073c9b0a.css.map": "/security_codes/static/css/main.073c9b0a.css.map",
+    "main.e36121ae.js.map": "/security_codes/static/js/main.e36121ae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.e36121ae.js"
+  ]
+}
